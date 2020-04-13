@@ -27,6 +27,12 @@
 - include_tasks: setup-Archlinux.yml
   when: ansible_os_family == 'Archlinux'
 
+- name: Copy h5bp configuration
+  copy: src=nginx dest=/etc
+
+- name: Set up dropping requests for unknown hosts
+  file: dest=/etc/nginx/sites-enabled/no-default state=link src=/etc/nginx/sites-available/no-default
+
 # Vhost configuration.
 - import_tasks: vhosts.yml
 
