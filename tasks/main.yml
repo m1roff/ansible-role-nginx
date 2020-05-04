@@ -54,5 +54,11 @@
     enabled: "{{ nginx_service_enabled }}"
 
 # https://weakdh.org/
+- name: Check taht dhparams file exists
+  stat:
+    path: /etc/ssl/certs/dhparam.pem
+  register: dhparams_stat_result
+  
 - name: Generate dhparams file
   shell: openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+  when: not dhparams_stat_result.stat.exists
