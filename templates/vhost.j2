@@ -5,9 +5,6 @@ server {
     listen       {{ item.redirect_listen | default('80') }};
 {% elif item.redirect_listen is defined and item.redirect_listen is iterable %}{% for listen in item.redirect_listen %}
     listen       {{ listen }};
-{% endfor %}
-{% elif item.listen is defined and item.listen is iterable %}{% for listen in item.listen %}
-    listen       {{ listen }};
 {% endfor %}{% else %}
     listen {{ item.listen | default('80') }};
 {% endif %}
